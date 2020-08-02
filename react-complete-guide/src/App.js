@@ -16,12 +16,20 @@ const app = (props)=>{
       ]
     })
   }
+  const changedName = (event)=> {
+    setPersonState({
+      person:[ 
+      {name:"Tuan Hung"},
+      {name:event.target.value}
+    ]
+  })
+  }
   return (
     <div className="App">
       <h1>I'm React App !!!</h1>
       <button onClick={swichesName}>Swiches name</button>
       <Person name={personState.person[0].name}>My hobbies: music</Person>
-      <Person name={personState.person[1].name}/>
+      <Person change={changedName} name={personState.person[1].name}/>
     </div>
   );
 }
