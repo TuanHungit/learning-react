@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import Validation from './Validation/Validation'
+import Char from './Char/Char'
 const app = (props)=>{
   const [personState, setPersonState] = useState({
     person:[
@@ -59,11 +61,43 @@ const app = (props)=>{
       </div>
     )
   }
+  //---------------------Assignment  
+  const [InputState, setInputState] = useState({
+    value:''
+  });
+  const changeInput = (event)=>{
+    setInputState({
+      value: event.target.value
+    })
+  }
+  const charList = InputState.value.split('').map((el,index)=>{
+    return <Char 
+    char={el} 
+    key={index}
+    click ={()=>deleteChar(index)}/>
+  })
+  const deleteChar = (index)=>{
+    const charList = [...InputState.value.split('')];
+    charList.splice(index,1);
+    
+    const updated = charList.join('');
+    console.log(updated);
+    setInputState({
+      value: updated
+    })
+    
+  }
   return (
     <div className="App">
-      <h1>I'm React App !!!</h1>
+      <br/>
+      <h1>I'm React App</h1>
+      {/* <h1>I'm React App !!!</h1>
       <button onClick={showName}>Swiches name</button>
-      {persons}
+      {persons} */}
+
+      <input type="text" onChange={changeInput} value={InputState.value}/>
+      <p>{charList}</p>
+      <Validation text = {charList} />
     </div>
   );
 }
