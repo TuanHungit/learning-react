@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
 import Validation from './Validation/Validation';
 import Char from './Char/Char';
@@ -49,18 +49,9 @@ const app = (props)=>{
     persons[index] = person;
     setPersonState({person:persons}); 
   }
-  let StyledButton = styled.button`
-    background-color:${props=>props.alt ? 'red':'green'};
-    color: white;
-    font: inherit;
-    border: 1px solid gray;
-    padding: 8px;
-    cursor: pointer;
-    &:hover{
-      background-color: ${props=>props.alt?'salmon':'lightgreen'};
-      color: black;
-  `
+
   let persons = null;
+  let buttonCSSClasses = '';
   if(ShowNameState.showName){
     persons = (
       <div>
@@ -74,11 +65,7 @@ const app = (props)=>{
         })}
       </div>
     )
-    // style.backgroundColor = "red";
-    // style[':hover'] = {
-    //   backgroundColor: "salmon",
-    //   color: "white"
-    // }
+    buttonCSSClasses = classes.Red;
   }
   //---------------------Assignment  
   const [InputState, setInputState] = useState({
@@ -106,21 +93,21 @@ const app = (props)=>{
     })
     
   }
-  const classes = [];
+  const assignClasses = [];
 
   if (personState.person.length <=2){
-    classes.push('red');
+    assignClasses.push('red');
   }
   if(personState.person.length<=1){
-   classes.push('bold'); 
+    assignClasses.push('bold'); 
   }
- 
+  
   return (
-      <div className="App">
+      <div className={classes.App}>
         <br/>
         <h1>I'm React App !!!</h1>
-        <p className={classes.join(' ')}>It really working</p>
-        <StyledButton alt={ShowNameState.showName} onClick={showName}>Toggle Person</StyledButton>
+        <p className={assignClasses.join(' ')}>It really working</p>
+        <button className={buttonCSSClasses} onClick={showName}>Toggle Person</button>
         {persons}
 
         {/* <input type="text" onChange={changeInput} value={InputState.value}/>
