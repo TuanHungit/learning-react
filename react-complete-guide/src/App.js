@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import './App.css';
 import Person from './Person/Person';
-import Validation from './Validation/Validation'
-import Char from './Char/Char'
+import Validation from './Validation/Validation';
+import Char from './Char/Char';
+//import Radium, {StyleRoot} from 'radium';
+import styled from 'styled-components';
 const app = (props)=>{
   const [personState, setPersonState] = useState({
     person:[
-      {id:'1',name:"Tuan Hung"},
-      {id:'2',name:"Tuan Kiet"},
-      {id:'3',name:"Anh Dung"},
-      {id:'4',name:"Tuan Anh"}
+      {id:'1',name:"Tuan Hung", age:18},
+      {id:'2',name:"Tuan Kiet",age:20},
+      {id:'3',name:"Anh Dung",age:28},
+      {id:'4',name:"Tuan Anh",age:25}
     ]
   });
   const [ShowNameState, setShowNameState] = useState({
@@ -47,6 +49,17 @@ const app = (props)=>{
     persons[index] = person;
     setPersonState({person:persons}); 
   }
+  let StyledButton = styled.button`
+    background-color:${props=>props.alt ? 'red':'green'};
+    color: white;
+    font: inherit;
+    border: 1px solid gray;
+    padding: 8px;
+    cursor: pointer;
+    &:hover{
+      background-color: ${props=>props.alt?'salmon':'lightgreen'};
+      color: black;
+  `
   let persons = null;
   if(ShowNameState.showName){
     persons = (
@@ -54,12 +67,18 @@ const app = (props)=>{
         {personState.person.map((person,index)=>{
           return <Person 
           name = {person.name} 
+          age = {person.age}
           key = {person.id}
           click={()=>deletePerson(index)}
           changedName= {(event)=>changedName(event,index)}/>
         })}
       </div>
     )
+    // style.backgroundColor = "red";
+    // style[':hover'] = {
+    //   backgroundColor: "salmon",
+    //   color: "white"
+    // }
   }
   //---------------------Assignment  
   const [InputState, setInputState] = useState({
@@ -87,18 +106,27 @@ const app = (props)=>{
     })
     
   }
-  return (
-    <div className="App">
-      <br/>
-      <h1>I'm React App</h1>
-      {/* <h1>I'm React App !!!</h1>
-      <button onClick={showName}>Swiches name</button>
-      {persons} */}
+  const classes = [];
 
-      <input type="text" onChange={changeInput} value={InputState.value}/>
-      <p>{charList}</p>
-      <Validation text = {charList} />
-    </div>
+  if (personState.person.length <=2){
+    classes.push('red');
+  }
+  if(personState.person.length<=1){
+   classes.push('bold'); 
+  }
+ 
+  return (
+      <div className="App">
+        <br/>
+        <h1>I'm React App !!!</h1>
+        <p className={classes.join(' ')}>It really working</p>
+        <StyledButton alt={ShowNameState.showName} onClick={showName}>Toggle Person</StyledButton>
+        {persons}
+
+        {/* <input type="text" onChange={changeInput} value={InputState.value}/>
+        <p>{charList}</p>
+        <Validation text = {charList} /> */}
+      </div>
   );
 }
 export default app;
