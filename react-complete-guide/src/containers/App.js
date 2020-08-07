@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import classes from './App.css';
-import Person from './Person/Person';
-import Validation from './Validation/Validation';
-import Char from './Char/Char';
+import Person from '../components/Persons/Person/Person';
+import Char from '../components/Char/Char';
+import Persons from '../components/Persons/Person'
 //import Radium, {StyleRoot} from 'radium';
 import styled from 'styled-components';
+import Cockpit from '../components/Cockpit/Cockpit'
 const app = (props)=>{
   const [personState, setPersonState] = useState({
     person:[
@@ -51,27 +52,25 @@ const app = (props)=>{
   }
 
   let persons = null;
-  let buttonCSSClasses = '';
+
   if(ShowNameState.showName){
     persons = (
-      <div>
-        {personState.person.map((person,index)=>{
-          return <Person 
-          name = {person.name} 
-          age = {person.age}
-          key = {person.id}
-          click={()=>deletePerson(index)}
-          changedName= {(event)=>changedName(event,index)}/>
-        })}
-      </div>
+      <Persons persons = {personState.person}
+      deletePerson = {deletePerson}
+      changedName = {changedName}/>
     )
-    buttonCSSClasses = classes.Red;
+
   }
   //---------------------Assignment  
   const [InputState, setInputState] = useState({
     value:''
   });
   const changeInput = (event)=>{
+    setInputState({
+      value: event.target.value
+    })
+  }
+  const changeName = (event)=>{
     setInputState({
       value: event.target.value
     })
@@ -93,22 +92,14 @@ const app = (props)=>{
     })
     
   }
-  const assignClasses = [];
-
-  if (personState.person.length <=2){
-    assignClasses.push('red');
-  }
-  if(personState.person.length<=1){
-    assignClasses.push('bold'); 
-  }
+ 
   
   return (
       <div className={classes.App}>
-        <br/>
-        <h1>I'm React App !!!</h1>
-        <p className={assignClasses.join(' ')}>It really working</p>
-        <button className={buttonCSSClasses} onClick={showName}>Toggle Person</button>
-        {persons}
+       <Cockpit persons = {personState}
+       showName = {ShowNameState.showName}
+       clicked = {showName}/>
+       {persons}
 
         {/* <input type="text" onChange={changeInput} value={InputState.value}/>
         <p>{charList}</p>
