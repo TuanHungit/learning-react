@@ -4,9 +4,12 @@ import Person from '../components/Persons/Person/Person';
 import Char from '../components/Char/Char';
 import Persons from '../components/Persons/Person'
 //import Radium, {StyleRoot} from 'radium';
-import styled from 'styled-components';
 import Cockpit from '../components/Cockpit/Cockpit'
-class app extends Component {
+class App extends Component {
+  constructor(props){
+    super(props);
+    console.log('[App.js] constructor');
+  }
   state = {
       person:[
         {id:'1',name:"Tuan Hung", age:18},
@@ -15,9 +18,19 @@ class app extends Component {
         {id:'4',name:"Tuan Anh",age:25}
       ],
       showName: false,
-      value:''
+      value:'',
+      showCockpit: true
     };
-
+    static  getDerivedStateFromProps(props, state){
+      console.log('getDerivedStateFromProps', props);
+      return state;
+    }
+  //   componentWillMount() {
+  //     console.log('Component WILL MOUNT!')
+  //  }
+    componentDidMount(){
+      console.log('[App.js] componentDidMount');
+    }
    swichesName= () => {
     this.setState({
         person:[
@@ -81,6 +94,7 @@ class app extends Component {
   }
  
   render(){
+    console.log('[App.js] render');
     let persons = null;
 
     if(this.state.showName){
@@ -93,10 +107,12 @@ class app extends Component {
     }
     return (
       <div className={classes.App}>
-       <Cockpit persons = {this.state.person}
+        <button onClick={()=>this.setState({showCockpit:false})}>Remove Cockpit</button>
+       {this.state.showCockpit ? <Cockpit personslength = {this.state.person.length}
        showName = {this.state.showName}
-       clicked = {this.showName}/>
-       {persons}
+       clicked = {this.showName}
+       title= {this.props.titleApp}/>: null }
+       {persons} 
 
         {/* <input type="text" onChange={changeInput} value={InputState.value}/>
         <p>{charList}</p>
@@ -105,4 +121,4 @@ class app extends Component {
     );
   }
 }
-export default app;
+export default App;
