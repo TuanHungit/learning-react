@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import withClass from '../../../hoc/withClass';
 import classes from './Person.css';
 import Aux from '../../../hoc/Aux';
+import PropTypes from 'prop-types';
 const person = (props)=>{
     return (
         <Aux> 
@@ -14,4 +15,10 @@ const person = (props)=>{
     ) 
 }
 
+person.propTypes = {
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    changedName: PropTypes.func
+}
 export default withClass(person, classes.Person);
