@@ -5,6 +5,8 @@ import Char from '../components/Char/Char';
 import Persons from '../components/Persons/Person'
 //import Radium, {StyleRoot} from 'radium';
 import Cockpit from '../components/Cockpit/Cockpit'
+import Aux from '../hoc/Aux';
+import withClass from '../hoc/withClass';
 class App extends Component {
   constructor(props){
     super(props);
@@ -106,7 +108,7 @@ class App extends Component {
 
     }
     return (
-      <div className={classes.App}>
+      <Aux>
         <button onClick={()=>this.setState({showCockpit:false})}>Remove Cockpit</button>
        {this.state.showCockpit ? <Cockpit personslength = {this.state.person.length}
        showName = {this.state.showName}
@@ -117,8 +119,8 @@ class App extends Component {
         {/* <input type="text" onChange={changeInput} value={InputState.value}/>
         <p>{charList}</p>
         <Validation text = {charList} /> */}
-      </div>
+      </Aux>
     );
   }
 }
-export default App;
+export default withClass(App, classes.App);

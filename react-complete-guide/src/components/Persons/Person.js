@@ -1,21 +1,21 @@
-import React, {Component, useDebugValue} from 'react'
+import React, {PureComponent} from 'react'
 import PersonEl from '../Persons/Person/Person'
-class Person extends Component {
+class Person extends PureComponent {
   // static getDerivedStateFromProps(props, state){
   //   console.log('[Person.js] getDerivedStateFromProps');
   //   return state;
   // }
-  shouldComponentUpdate(nextProps, nextState){
-    if(nextProps.persons !== this.props.persons){
-      console.log('[Person.js] shouldComponentUpdate');
-      return true;
-    }
-    return false;
-  }
+  // shouldComponentUpdate(nextProps, nextState){
+  //   if(nextProps.persons !== this.props.persons){
+  //     console.log('[Person.js] shouldComponentUpdate');
+  //     return true;
+  //   }
+  //   return false;
+  // }
   getSnapshotBeforeUpdate(prevProps, prevState){
     console.log('[Person.js] getSnapshotBeforeUpdate');
     return {message:"Snapshot"};
-  }
+  } 
   componentDidUpdate(prevProps, prevState, message){
     console.log('[Person.js] componentDidUpdate');
     console.log(message);
