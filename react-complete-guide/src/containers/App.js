@@ -7,6 +7,7 @@ import Persons from '../components/Persons/Person'
 import Cockpit from '../components/Cockpit/Cockpit'
 import Aux from '../hoc/Aux';
 import withClass from '../hoc/withClass';
+import AuthContext from '../context/auth-context';
 class App extends Component {
   constructor(props){
     super(props);
@@ -21,7 +22,8 @@ class App extends Component {
       ],
       showName: false,
       value:'',
-      showCockpit: true
+      showCockpit: true,
+      isAuthencated: false
     };
     static  getDerivedStateFromProps(props, state){
       console.log('getDerivedStateFromProps', props);
@@ -91,10 +93,11 @@ class App extends Component {
     console.log(updated);
     this.setState({
       value: updated
-    })
-    
+    })    
   }
- 
+  login = ()=>{
+    this.setState({isAuthencated: !this.state.isAuthencated})
+  }
   render(){
     console.log('[App.js] render');
     let persons = null;
@@ -110,12 +113,15 @@ class App extends Component {
     return (
       <Aux>
         <button onClick={()=>this.setState({showCockpit:false})}>Remove Cockpit</button>
-       {this.state.showCockpit ? <Cockpit personslength = {this.state.person.length}
-       showName = {this.state.showName}
-       clicked = {this.showName}
-       title= {this.props.titleApp}/>: null }
-       {persons} 
-
+        <AuthContext.Provider value={{authencated: this.state.isAuthencated, login: this.login}}>
+          {this.state.showCockpit ? 
+            <Cockpit personslength = {this.state.person.length}
+            showName = {this.state.showName}
+            clicked = {this.showName}
+            title= {this.props.titleApp}/>
+          : null }
+          {persons} 
+        </AuthContext.Provider>
         {/* <input type="text" onChange={changeInput} value={InputState.value}/>
         <p>{charList}</p>
         <Validation text = {charList} /> */}

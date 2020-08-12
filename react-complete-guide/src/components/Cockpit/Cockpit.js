@@ -1,16 +1,17 @@
-import React, {useEffect} from 'react';
-import classes from './Cockpit.css'
+import React, {useEffect, useRef} from 'react';
+import classes from './Cockpit.css';
+import AuthContext from '../../context/auth-context';
 const cockpit = (props) => {
+    const buttonElementRef = useRef(null);
     useEffect(()=>{
       console.log('[Cockpit.js] useEffect');
-      setTimeout(() => {
-        alert("Saved data to cloud!");
-      }, 1000);
+      buttonElementRef.current.click();
       return ()=>{
         console.log('[Cockpit.js] cleanup work in useEffect');
       }
     }, []);
     useEffect(()=>{
+      
       console.log('[Cockpit.js] 2nd useEffect');
       return ()=>{
         console.log('[Cockpit.js] cleanup work in 2nd useEffect');
@@ -32,7 +33,10 @@ const cockpit = (props) => {
             <br/>
             <h1>{props.title}</h1>
             <p className={assignClasses.join(' ')}>It really working</p>
-            <button className={buttonCSSClasses} onClick={props.clicked}>Toggle Person</button>
+            <button ref={buttonElementRef} className={buttonCSSClasses} onClick={props.clicked}>Toggle Person</button>
+            <AuthContext.Consumer>
+              {(context)=><button onClick={context.login}>Login</button>}
+            </AuthContext.Consumer>
         </div>
     )
 }
