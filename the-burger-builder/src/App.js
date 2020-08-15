@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Layout from './components/Layout';
+import Layout from './components/Layout/Layout';
 import Auxi from './hoc/Auxi';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 class App extends Component {
@@ -7,7 +7,7 @@ class App extends Component {
     return (
       <Auxi>
         <Layout>
-            <BurgerBuilder />
+          <BurgerBuilder />
         </Layout>
       </Auxi>
     );

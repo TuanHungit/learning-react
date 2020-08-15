@@ -7,7 +7,7 @@ const buildControl = (props) => {
       <div className={classes.Label}>{props.label}</div>
       <button
         className={classes.Less}
-        disabled={props.disable}
+        disabled={props.disabled}
         onClick={props.removed}
       >
         Less
