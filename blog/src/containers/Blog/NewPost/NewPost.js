@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './NewPost.css';
-
+import { Redirect } from 'react-router-dom';
 class NewPost extends Component {
   state = {
     title: '',
     content: '',
     author: 'Max',
+    submitted: false,
   };
   postDataHandler = () => {
     const data = {
@@ -18,6 +19,8 @@ class NewPost extends Component {
       .post('https://jsonplaceholder.typicode.com/posts', data)
       .then((response) => {
         console.log(response);
+        this.props.history.push('/posts');
+        //this.setState({ submitted: true });
       });
   };
 
@@ -46,6 +49,7 @@ class NewPost extends Component {
           <option value='Manu'>Manu</option>
         </select>
         <button onClick={this.postDataHandler}>Add Post</button>
+        {this.state.submitted ? <Redirect to='/posts' /> : null}
       </div>
     );
   }

@@ -4,6 +4,8 @@ import Blog from './containers/Blog/Blog';
 
 class App extends Component {
   render() {
+    console.log('[App]');
+    console.log(this.props);
     return (
       <BrowserRouter>
         <div className='App'>
