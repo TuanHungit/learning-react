@@ -4,4 +4,4 @@ export {
   initIngredients,
 } from './burgerBuilder';
 export { purchaseBurger, purchaseInit, fetchOrders } from './order';
-export { auth, Logout } from './auth';
+export { auth, Logout, setAuthRedirectPath, authCheck } from './auth';
