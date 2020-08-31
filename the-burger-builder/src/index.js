@@ -10,9 +10,11 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import burgerReducer from './store/reducers/burgerBuilder';
 import order from './store/reducers/order';
+import auth from './store/reducers/auth';
 const rootReducer = combineReducers({
   burger: burgerReducer,
   order: order,
+  auth: auth,
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
